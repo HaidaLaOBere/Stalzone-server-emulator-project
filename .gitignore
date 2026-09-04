@@ -1,0 +1,30 @@
+# Raw/copyrighted game client and Steam depot files -- never committed
+/STALZONE FULL CLIENT*/
+/app_1818450/
+/app_1818450*/
+
+# Raw network captures -- large, and can contain session/auth data
+*.pcapng
+/captures/
+
+# Raw local save-game samples -- personal account data, not project source
+/Claude/
+
+# Stray/duplicate early scaffolding folder superseded by server-emulator/
+/server-emultaor-src/
+
+# Scratch/staging leftovers from working sessions
+/_to_delete/
+**/_to_delete/
+
+# Build output
+/server-emulator/out/
+**/*.class
+
+# Python bytecode cache
+**/__pycache__/
+**/*.pyc
+
+# OS cruft
+.DS_Store
+Thumbs.db
