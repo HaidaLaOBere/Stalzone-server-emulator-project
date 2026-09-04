@@ -1,0 +1,17 @@
+[
+  {
+    "mobId": "base_boar",
+    "dropChance": 0.5,
+    "entries": [
+      {"itemId": "16340", "minCount": 1, "maxCount": 2, "weight": 3.0},
+      {"itemId": "16347", "minCount": 1, "maxCount": 1, "weight": 1.0}
+    ]
+  },
+  {
+    "mobId": "base_tushkan",
+    "dropChance": 0.25,
+    "entries": [
+      {"itemId": "16340", "minCount": 1, "maxCount": 1, "weight": 1.0}
+    ]
+  }
+]
