@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Loads a plain, operator/modder-editable JSON file of per-mob {@code maxHealth} overrides,
@@ -86,8 +87,16 @@ public final class MobHealthTable {
         return v != null ? v : MobInstance.DEFAULT_MAX_HEALTH;
     }
 
-    /** Real mob ids (from {@link MobRegistry#all()}) that have no entry in this table, for a dump/audit tool. */
+    /**
+     * Real mob ids (from {@link MobRegistry#all()}) that have no entry in this table, for a
+     * dump/audit tool. Uses {@code Collectors.toList()} rather than {@code Stream.toList()}
+     * (Java 16+) so this class stays compilable at {@code --release 11}, matching every other
+     * class in this project -- a maintenance fix, not a behavior change (part 82's device-side
+     * verification run surfaced this as the one thing blocking a full-project {@code --release 11}
+     * device build; every individual part's own files had always compiled fine at 11, this was
+     * simply never exercised as part of a whole-project 11 build until then).
+     */
     public List<String> unconfigured(List<String> allMobConfigIds) {
-        return allMobConfigIds.stream().filter(id -> !byConfigId.containsKey(id)).toList();
+        return allMobConfigIds.stream().filter(id -> !byConfigId.containsKey(id)).collect(Collectors.toList());
     }
 }

@@ -60,6 +60,16 @@ public final class LootRollerTest {
             assertTrue(roller.roll(table).isEmpty(), "lootRateMultiplier=0.0 should suppress all drops");
         }));
 
+        out.add(test("setLootRateMultiplier (part 88) live-retunes the multiplier the very next roll uses", () -> {
+            LootTable table = new LootTable(1.0, List.of(new LootEntry("x", 1, 1, 1.0)));
+            ServerConfig config = new ServerConfig(); // default lootRateMultiplier=1.0
+            LootRoller roller = new LootRoller(config, new Random(7));
+            assertEquals(1.0, roller.lootRateMultiplier(), 1e-9, "starts at the ServerConfig value passed to the constructor");
+            roller.setLootRateMultiplier(0.0);
+            assertEquals(0.0, roller.lootRateMultiplier(), 1e-9, "getter reflects the live override immediately");
+            assertTrue(roller.roll(table).isEmpty(), "the very next roll honors the live-retuned 0.0 multiplier, suppressing all drops");
+        }));
+
         out.add(test("roll: lootRateMultiplier clamps the effective chance at 1.0 rather than over-rolling", () -> {
             // dropChance=0.5 * lootRateMultiplier=3.0 would be 1.5 unclamped -- effectiveChance
             // must clamp to 1.0, i.e. this should behave identically to the dropChance=1.0 test above.

@@ -1,6 +1,11 @@
 package net.stalzone.emulator.session;
 
+import net.stalzone.emulator.progression.PlayerClass;
+import net.stalzone.emulator.progression.PrestigeAbility;
 import net.stalzone.emulator.world.MilestoneMap;
+
+import java.util.EnumSet;
+import java.util.Set;
 
 /**
  * Server-side state for one connected (or, for now, simulated) player: position, current zone,
@@ -15,6 +20,21 @@ import net.stalzone.emulator.world.MilestoneMap;
  * <p>Position is plain world-block coordinates in the same system {@code WorldModel} already
  * uses (part 18) -- (x, y, z) as doubles so sub-block movement can be simulated, with y as the
  * vertical (up) axis per {@code ChunkHeader}'s established 16-band-per-chunk convention.
+ *
+ * <p>As of part 82, {@link #wallet} holds this player's real, evidenced multi-currency balances
+ * (part 27) the same way {@link #inventory} holds carried items -- see {@link Wallet}'s class doc.
+ *
+ * <p>As of part 83, {@link #playerClass} (nullable -- no evidence says a class must be selected at
+ * creation, or ever) records which of {@link PlayerClass}'s real six evidenced class names this
+ * player has chosen, and {@link #unlockedAbilities} tracks which of {@link PrestigeAbility}'s 11
+ * real named abilities they have. Both are real, evidenced NAMES (part 66); see those two enums'
+ * own class docs for exactly why neither comes with any simulated stat/effect behavior -- no
+ * numeric class or ability data has been found anywhere in this project.
+ *
+ * <p>As of part 85, {@link #questLog} holds this player's real, evidenced quest-progress
+ * bookkeeping (real quest ids, and real titles/lifecycle status once a real notification event
+ * has been recorded for one) -- see {@link QuestLog}'s own class doc for the two real evidence
+ * sources it combines and exactly what it deliberately does not simulate.
  */
 public final class PlayerState {
 
@@ -24,6 +44,10 @@ public final class PlayerState {
     public double y;
     public double z;
     public final Inventory inventory = new Inventory();
+    public final Wallet wallet = new Wallet();
+    public PlayerClass playerClass; // null until the player selects one -- no evidence this is required
+    public final Set<PrestigeAbility> unlockedAbilities = EnumSet.noneOf(PrestigeAbility.class);
+    public final QuestLog questLog = new QuestLog();
 
     public PlayerState(String name, String zoneName, double x, double y, double z) {
         this.name = name;

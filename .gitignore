@@ -16,10 +16,16 @@
 # Scratch/staging leftovers from working sessions
 /_to_delete/
 **/_to_delete/
+/_to_delete_docs/
+**/_to_delete_docs/
 
 # Build output
 /server-emulator/out/
 **/*.class
+
+# Stray part-sync tarballs (should already be cleaned into _to_delete/)
+**/part*_out.tar.gz
+**/part*_src.tar.gz
 
 # Python bytecode cache
 **/__pycache__/

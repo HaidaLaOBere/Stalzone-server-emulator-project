@@ -105,6 +105,18 @@ import java.util.Map;
  * {@code respect}, {@code loyal}, {@code levels}, {@code craft_details}/{@code craft_details_hd},
  * {@code details}, {@code new_parts}, {@code encaged_currency}, and {@code pg_currency}/{@code
  * pg_na_currency} (abbreviation meaning unconfirmed).
+ *
+ * <p><b>UPDATED part 109:</b> a real, separate {@code en.lang} namespace, {@code
+ * currency.type.id.<id>.*} (see {@link CurrencyDisplayCatalog}), gives real display
+ * names/tooltips/hints to several ids this class found only as bare icon filenames: {@code
+ * reichstag_silver}, {@code reichstag_xp_free}, {@code twitch_shards}="Twitch Fragments", {@code
+ * ssop_help}/{@code ssop_help_currency}="Receipts issued by the SSPP...", {@code
+ * encaged_currency} (a real dark atmospheric hint text), and {@code sc_birthday_21} (part 27's
+ * VendorArchive currency) ="Trade Coins". Also real and newly found there: {@code
+ * arsenal_reputation} and {@code prestige_dollars}="Patterns" (tying to a real, previously-unseen
+ * "Soothsayer" entity/NPC name), plus four more real Reichstag-event currency ids ({@code
+ * reichstag_xp_infantry}/{@code _scout}/{@code _machinegunner}/{@code _engineer}) this class never
+ * found as icons at all.
  */
 public final class CurrencyCatalog {
 

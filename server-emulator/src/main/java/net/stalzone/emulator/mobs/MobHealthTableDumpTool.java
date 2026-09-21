@@ -3,6 +3,7 @@ package net.stalzone.emulator.mobs;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * CLI tool for a mob-health-table JSON file: {@code dump} prints every configured override (and,
@@ -36,7 +37,7 @@ public final class MobHealthTableDumpTool {
                 }
                 if (args.length > 2) {
                     MobRegistry registry = MobRegistry.load(Path.of(args[2]));
-                    List<String> allIds = registry.all().stream().map(MobConfig::configId).toList();
+                    List<String> allIds = registry.all().stream().map(MobConfig::configId).collect(Collectors.toList());
                     List<String> unconfigured = table.unconfigured(allIds);
                     System.out.println("Real mob ids with no override (fall back to DEFAULT_MAX_HEALTH="
                             + MobInstance.DEFAULT_MAX_HEALTH + "): " + unconfigured.size() + " / " + allIds.size());

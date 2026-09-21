@@ -21,15 +21,34 @@ import java.util.Random;
  * in {@code [minCount, maxCount]}. {@code lootRateMultiplier} scales the drop CHANCE, not the
  * dropped count -- a deliberate, simple choice consistent with how {@code spawnRateMultiplier}
  * scales spawn cadence rather than mob count per spawn.
+ *
+ * <p>As of part 88, {@link #setLootRateMultiplier} lets an operator retune this live, without a
+ * restart -- unlike {@code SpawnScheduler}/{@code EmissionCycle}, a live change here takes effect
+ * on the very next {@link #roll}, since the multiplier is read fresh every call rather than baked
+ * into a precomputed countdown.
  */
 public final class LootRoller {
 
-    private final double lootRateMultiplier;
+    private double lootRateMultiplier;
     private final Random random;
 
     public LootRoller(ServerConfig config, Random random) {
         this.lootRateMultiplier = config.lootRateMultiplier;
         this.random = random;
+    }
+
+    /** The loot-rate multiplier currently in effect (the constructor's {@code ServerConfig} value, or a live override via {@link #setLootRateMultiplier}). */
+    public double lootRateMultiplier() {
+        return lootRateMultiplier;
+    }
+
+    /**
+     * Live-retunes the loot-rate multiplier (part 88 -- an operator/console action, e.g.
+     * {@code ConsoleDriver}'s {@code tune} command; not new evidence). Applies starting with the
+     * very next {@link #roll} call.
+     */
+    public void setLootRateMultiplier(double lootRateMultiplier) {
+        this.lootRateMultiplier = lootRateMultiplier;
     }
 
     /**

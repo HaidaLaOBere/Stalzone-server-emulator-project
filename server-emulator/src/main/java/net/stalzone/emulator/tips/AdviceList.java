@@ -31,6 +31,20 @@ import java.util.List;
  * "which tip shows on which loading screen" logic found anywhere), so this class does not invent
  * a selection/rotation policy -- {@link #tips()} exposes the real strings in real file order and
  * nothing more.
+ *
+ * <p><b>UPDATED part 106 (2026-09-11):</b> the STALCRAFT/STALZONE lineage this class's own doc
+ * above corroborates from the tip string is further, and more directly, confirmed by real developer
+ * -voiced text in {@code stalker/lang/en.lang}'s small {@code bonuscode.*} namespace (5 lines, real
+ * anniversary-gift mail bodies signed "Ziv"/"ZIV"/"Server Sprinkler"): {@code
+ * bonuscode.stalzone2026.old} reads, verbatim, "Please accept this small reward of appreciation
+ * from the team: for all the time you've spent with us, first in STALCRAFT and now in STALZONE."
+ * This is the project's most direct real evidence yet of the STALCRAFT-&gt;STALZONE rename --
+ * stated outright by the developers in their own player-facing copy, not inferred from a shared
+ * asset-folder name or a single incidental string. The same {@code bonuscode.stalzone2026.newbies}
+ * text further states the project (under either name) is, as of that copy, "twelve years" old and
+ * traces its annual celebration to "July 10th" -- real, previously-uncatalogued project-history
+ * facts, disclosed here for completeness though outside this project's game-content focus (rule 2).
+ * Not built into a dedicated class given the namespace's small size (5 lines).
  */
 public final class AdviceList {
 

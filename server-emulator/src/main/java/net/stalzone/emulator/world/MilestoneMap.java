@@ -77,11 +77,20 @@ package net.stalzone.emulator.world;
  * full name, but gained real independent corroboration this part: a real, on-disk
  * per-zone barter-item icon set (customitems/textures/items/barter/<zone>.<category>.ol)
  * places mg/pd/td in the exact same reference class as already-confirmed real zones
- * (armsklad, bar, bolota, kordon, les, svalka), plus two zone names new to this project
- * entirely from that same icon set, "limansk" and "sever" (neither is a map_cache folder
- * name, so their own playable-zone status, if any, is unconfirmed -- see
+ * (armsklad, bar, bolota, kordon, les, svalka), plus three zone-shaped names new to this
+ * project entirely from that same icon set, "limansk", "sever", and "blizzard" (none of the
+ * three is a map_cache folder name, so their own playable-zone status, if any, is
+ * unconfirmed -- see
  * docs/RESEARCH_LOG.md part 53 for the full barter-icon evidence and the real "zarya"
  * armor-model discovery from the same sweep). Zero zones were removed since part 26.
+ *
+ * UPDATED 2026-09-11 (docs/RESEARCH_LOG.md part 105): mg/pd/td are FINALLY resolved by full
+ * real name, via a completely different real source than this file's own part-26/53 sweeps --
+ * {@code stalker/lang/en.lang}'s {@code location.<id>.name} key family (see the new {@link
+ * LocationNameRegistry}, this part): {@code mg}="The Dead City", {@code pd}="The Path of Fools"
+ * (independently reinforcing part 96's own separate resolution), {@code td}="Black Willows".
+ * This also resolves {@code dungeon_spusk} (already on the 67-zone roster above since part 26)
+ * to "Vagant's Den", reinforcing part 104's {@code vagant/} boss finding with a real named lair.
  */
 public final class MilestoneMap {
 

@@ -20,6 +20,13 @@ import java.util.Random;
  * real 35-mob roster, on a fixed-mean interval scaled by {@code spawnRateMultiplier}. This is
  * exactly the kind of "full control over ... spawn rates" knob the project exists to provide,
  * not a claim about how the real game decides spawns.
+ *
+ * <p>As of part 88, {@link #setSpawnRateMultiplier} lets an operator retune this live, without a
+ * restart -- until then, the multiplier was only ever captured once, at construction time, from
+ * whatever {@link ServerConfig#spawnRateMultiplier} held at that moment; editing that field
+ * afterward (e.g. from a running {@code ConsoleDriver}) silently did nothing, since nothing
+ * re-read it. See {@link #setSpawnRateMultiplier}'s own doc for exactly when a live change takes
+ * effect.
  */
 public final class SpawnScheduler {
 
@@ -27,7 +34,7 @@ public final class SpawnScheduler {
     public static final double BASE_MEAN_SECONDS_BETWEEN_SPAWNS = 30.0;
 
     private final MobRegistry registry;
-    private final double spawnRateMultiplier;
+    private double spawnRateMultiplier;
     private final Random random;
 
     private double secondsUntilNextSpawn;
@@ -37,6 +44,23 @@ public final class SpawnScheduler {
         this.spawnRateMultiplier = config.spawnRateMultiplier;
         this.random = random;
         this.secondsUntilNextSpawn = nextInterval();
+    }
+
+    /** The spawn-rate multiplier currently in effect (the constructor's {@code ServerConfig} value, or a live override via {@link #setSpawnRateMultiplier}). */
+    public double spawnRateMultiplier() {
+        return spawnRateMultiplier;
+    }
+
+    /**
+     * Live-retunes the spawn-rate multiplier (part 88 -- an operator/console action, e.g.
+     * {@code ConsoleDriver}'s {@code tune} command; not new evidence). Takes effect starting with
+     * the NEXT interval this scheduler computes after the currently-pending countdown fires next
+     * -- it does not retroactively rescale a countdown already in progress at the moment this is
+     * called, same "applies going forward, not retroactively" semantics as changing a game's
+     * spawn-rate setting mid-session generally would.
+     */
+    public void setSpawnRateMultiplier(double spawnRateMultiplier) {
+        this.spawnRateMultiplier = spawnRateMultiplier;
     }
 
     private double nextInterval() {

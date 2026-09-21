@@ -56,17 +56,24 @@ left to whoever runs the emulator, via the config multipliers `server-emulator` 
 - `docs/PROJECT_PLAN.md` -- the original project plan and stack decision.
 - `docs/CAPTURE_GUIDE.md` -- notes on capturing/analyzing traffic (data, not the raw captures
   themselves).
+- `Memory/` -- one findings file per recent research part (`recon_findings_cont*.md`), indexed by
+  `MEMORY.md`; a file-based continuation of `docs/RESEARCH_LOG.md`'s per-part history, added after
+  part 62.
 - `data/` -- curated, structured research data derived from the client (weapon stats, example loot
   tables, example mob health data), with each subfolder's own README documenting provenance and
   completeness.
 - `tools/` -- standalone Python analysis tools (`nbt_dump.py`, `item_lookup.py`) used during
   research, independent of the Java emulator.
+- `config/` -- an example `server.properties` config template for the emulator.
+- `mods/` -- an example compiled mod jar demonstrating the emulator's mod-loading support.
 
 ## Status
 
-As of this writing the project has completed 62 numbered research/build parts, compiles clean, and
-passes its full Java unit-test suite end to end. See `server-emulator/README.md` for the exact
-current source/test counts and `docs/RESEARCH_LOG.md` for the full history.
+As of this writing the project has completed 180 numbered research/build parts, compiles clean, and
+passes its full Java unit-test suite end to end (1,110 tests). See `server-emulator/README.md` for the
+exact current source/test counts and `docs/RESEARCH_LOG.md` for the full history. A `Memory/` folder
+(added after part 62) holds one findings file per recent part, complementing `docs/RESEARCH_LOG.md`'s
+full numbered history.
 
 ## Methodology
 
